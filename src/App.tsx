@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, Grid, GridItem, Show } from "@chakra-ui/react";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import ColorModeSwitch from "./components/ColorModeSwitch";
 
 function App() {
   //chakra can create a gird, and you can import tsx files into the grid system, very cool
@@ -22,7 +23,7 @@ function App() {
       </Show>
 
       <GridItem area={"main"} bg={"blue"}>
-        Main
+       
       </GridItem>
     </Grid>
   );
