@@ -13,6 +13,7 @@ export interface Game{
     name: string;
     background_image: string;
     parent_platforms: {platform: Platform}[];
+    metacritic: number;
 }
 
 interface FetchGameResponse{
@@ -22,22 +23,30 @@ interface FetchGameResponse{
 
 const useGames = () => {
     const [games, setGames] = useState<Game[]>([]) //the type and array sets the type so it can be used in out return map
-    const [error, setError] = useState(null)
+    const [error, setError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
 
         const controller = new AbortController()
+        setIsLoading(true)
 
         apiClient
         .get<FetchGameResponse>('/games', { signal: controller.signal })
-        .then(response => setGames(response.data.result))
+        .then(response => {
+            setGames(response.data.result)
+            setIsLoading(false)
+        })
+    
         .catch(error => {
             if(error instanceof CanceledError) return;
-            setError(error.message)});
+            setError(error.message)
+            setIsLoading(false)
+        });
 
         return () => controller.abort()
     }, [])
-    return { games, error }
+    return { games, error, isLoading }
 }
 
 export default useGames

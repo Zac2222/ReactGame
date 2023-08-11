@@ -4,6 +4,7 @@ import {FaAndroid, FaApple, FaLinux, FaPlaystation, FaWindows, FaXbox} from 'rea
 import {SiNintendo} from 'react-icons/si'
 import {MdPhoneIphone} from 'react-icons/md'
 import {BsGlobe} from 'react-icons/bs'
+import { IconType } from "react-icons"
 
 interface Props{
     platform: Platform[] //new interface to pass in our platform
@@ -26,7 +27,7 @@ const PlatformIconsList = ({platform}:Props) => {
   return (
     <HStack>
       {platform.map((platform)=> (
-        <Icon as={iconMap[platform.slug]}/>
+        <Icon as={iconMap[platform.slug]} color={'gray.500'}/>
       ))}
     </HStack>
   )
