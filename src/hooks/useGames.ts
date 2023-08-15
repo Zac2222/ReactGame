@@ -17,12 +17,7 @@ export interface Game{
     metacritic: number;
 }
 
-// interface FetchGameResponse{
-//     count: number;
-//     result: Game[] 
-// }
-
-const useGames = () => useData<Game> {
+const useGames = () => useData<Game>('/genres') 
 
 
 export default useGames
