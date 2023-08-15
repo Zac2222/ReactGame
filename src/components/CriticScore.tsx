@@ -10,7 +10,7 @@ const CriticScore = ({score}:Props) => {
 
   return (
     //we cant see the project yet, but its possible the the numbers should not be in the {} when its the px, maybe its just for numbers, who knows i dont know
-    <Badge colorScheme={color} fontSize={'10px'} padding={3} borderRadius={'5px'}> 
+    <Badge colorScheme={color} fontSize={'15px'} padding={2} borderRadius={'10px'}> 
         {score}
     </Badge>
   

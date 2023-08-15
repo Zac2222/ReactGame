@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import apiClient from "../services/apiClient"
 import { CanceledError } from "axios";
+import useData from "./useData";
 
 export interface Platform{
     id: number;
@@ -16,37 +17,12 @@ export interface Game{
     metacritic: number;
 }
 
-interface FetchGameResponse{
-    count: number;
-    result: Game[] //this is now a game array, an array made out of the interface above with the properties in it
-}
+// interface FetchGameResponse{
+//     count: number;
+//     result: Game[] 
+// }
 
-const useGames = () => {
-    const [games, setGames] = useState<Game[]>([]) //the type and array sets the type so it can be used in out return map
-    const [error, setError] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
+const useGames = () => useData<Game> {
 
-    useEffect(() => {
-
-        const controller = new AbortController()
-        setIsLoading(true)
-
-        apiClient
-        .get<FetchGameResponse>('/games', { signal: controller.signal })
-        .then(response => {
-            setGames(response.data.result)
-            setIsLoading(false)
-        })
-    
-        .catch(error => {
-            if(error instanceof CanceledError) return;
-            setError(error.message)
-            setIsLoading(false)
-        });
-
-        return () => controller.abort()
-    }, [])
-    return { games, error, isLoading }
-}
 
 export default useGames

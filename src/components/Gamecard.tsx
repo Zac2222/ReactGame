@@ -10,15 +10,15 @@ interface GameProps{
 
 const Gamecard = ({game}: GameProps) => {
   return (
-    <Card borderRadius={10} overflow={'hidden'}>
+    <Card>
         <Image src={getCroppedImageUrl(game.background_image)}/>
         <CardBody>
             <Heading fontSize={'2xl'}>{game.name}</Heading>
             {/* {game.parent_platforms.map(({platform}) => <Text>{platform.name}</Text>)} */}
             <HStack justifyContent={'space-between'}>
-              <PlatformIconsList platform={game.parent_platforms.map(({platform}) => platform)}/>
+              <PlatformIconsList platform={game.parent_platforms.map(p => p.platform)}/>
               <CriticScore score={game.metacritic}/>
-            </HStack>
+            </HStack>-
         </CardBody>
     </Card>
   )

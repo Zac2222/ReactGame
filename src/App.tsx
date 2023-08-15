@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import ColorModeSwitch from "./components/ColorModeSwitch";
 import GameGrid from "./components/GameGrid";
+import GenreList from "./components/GenreList";
 
 function App() {
   //chakra can create a gird, and you can import tsx files into the grid system, very cool
@@ -18,12 +19,12 @@ function App() {
       </GridItem>
 
       <Show above="lg">
-        <GridItem area={"aside"} bg={"gold"}>
-          Aside
+        <GridItem area="aside">
+          <GenreList></GenreList>
         </GridItem>
       </Show>
 
-      <GridItem area={"main"} bg={"blue"}>
+      <GridItem area="main">
         <GameGrid/>
       </GridItem>
     </Grid>
