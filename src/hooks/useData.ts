@@ -9,7 +9,7 @@ interface FetchResponse<T>{ //passing in T means it can take in anytype if we do
     result: T[] //this is now a game array, an array made out of the interface above with the properties in it
 }
 
-const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig) => {
+const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?: any) => {
     const [data, setData] = useState<T[]>([]) //the type and array sets the type so it can be used in out return map
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -33,7 +33,7 @@ const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig) => {
         });
 
         return () => controller.abort()
-    }, [])
+    }, deps? [...deps]:[])
     return { data, error, isLoading }
 }
 
