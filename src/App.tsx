@@ -9,9 +9,15 @@ import { Genre } from "./hooks/useGeneres";
 import PlatformSelect from "./components/PlatformSelect";
 import { Platform } from "./hooks/useGames";
 
+export interface GameQuery {
+  genre: Genre | null
+  platform: Platform | null
+}
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null)
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery) //this usestate now works as a replacement for the other two with the interface
+  // const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
+  // const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null)
   //chakra can create a gird, and you can import tsx files into the grid system, very cool
   return (
     <Grid
@@ -32,13 +38,13 @@ function App() {
 
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
-          <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}></GenreList>
+          <GenreList selectedGenre={gameQuery.genre} onSelectGenre={(genre) => setGameQuery({...gameQuery, genre})}></GenreList>
         </GridItem>
       </Show>
 
       <GridItem area="main">
-        <PlatformSelect selectedPlatform={selectedPlatform} onSelectPlatform={(platform) => setSelectedPlatform(platform)}/>
-        <GameGrid selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
+        <PlatformSelect selectedPlatform={gameQuery.platform} onSelectPlatform={(platform) => setGameQuery({...gameQuery, platform})}/>
+        <GameGrid gameQuery={gameQuery}/>
       </GridItem>
     </Grid>
   );
