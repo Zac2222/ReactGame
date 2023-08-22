@@ -21,7 +21,7 @@ const PlatformSelect = ({onSelectPlatform}:Props) => {
         </MenuList>
     </Menu>
       
-  )
-}
+  );
+};
 
 export default PlatformSelect
