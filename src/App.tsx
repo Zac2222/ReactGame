@@ -7,9 +7,11 @@ import GenreList from "./components/GenreList";
 import { useState } from "react";
 import { Genre } from "./hooks/useGeneres";
 import PlatformSelect from "./components/PlatformSelect";
+import { Platform } from "./hooks/useGames";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
+  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null)
   //chakra can create a gird, and you can import tsx files into the grid system, very cool
   return (
     <Grid
@@ -29,14 +31,14 @@ function App() {
       </GridItem>
 
       <Show above="lg">
-        <GridItem area="aside">
+        <GridItem area="aside" paddingX={5}>
           <GenreList selectedGenre={selectedGenre} onSelectGenre={(genre) => setSelectedGenre(genre)}></GenreList>
         </GridItem>
       </Show>
 
       <GridItem area="main">
-        <PlatformSelect/>
-        <GameGrid selectedGenre={selectedGenre}/>
+        <PlatformSelect selectedPlatform={selectedPlatform} onSelectPlatform={(platform) => setSelectedPlatform(platform)}/>
+        <GameGrid selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}/>
       </GridItem>
     </Grid>
   );

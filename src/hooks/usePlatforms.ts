@@ -1,5 +1,5 @@
 import useData from "./useData"
-import { Platform } from "./useGames"
+// import { Platform } from "./useGames"
 
 interface Platform {
     id: number
