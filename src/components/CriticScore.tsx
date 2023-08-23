@@ -6,7 +6,7 @@ interface Props{
 
 const CriticScore = ({score}:Props) => {
 
-    const color = score > 75 ? 'green' : score > 60 ? 'yellow' : '';
+    const color = score > 75 ? 'green' : score > 60 ? 'yellow' : 'red';
 
   return (
     //we cant see the project yet, but its possible the the numbers should not be in the {} when its the px, maybe its just for numbers, who knows i dont know
