@@ -1,40 +1,44 @@
-import { useEffect, useState } from "react"
-import apiClient from "../services/apiClient"
-import { Axios, AxiosRequestConfig, CanceledError } from "axios";
-import { Genre } from "./useGeneres";
+import { useEffect, useState } from "react";
+import apiClient from "../services/apiClient";
+import { AxiosRequestConfig, CanceledError } from "axios";
 
 
-interface FetchResponse<T>{ //passing in T means it can take in anytype if we dont know what it will be yet
-    count: number;
-    result: T[] //this is now a game array, an array made out of the interface above with the properties in it
+
+interface FetchResponse<T> {
+  count: number;
+  results: T[];
 }
 
-const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?: any) => {
-    const [data, setData] = useState<T[]>([]) //the type and array sets the type so it can be used in out return map
-    const [error, setError] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
+const useData = <T>(endpoint: string,requestConfig?: AxiosRequestConfig, deps?: any) => {
+  const [data, setData] = useState<T[]>([]);
+  const [error, setError] = useState("");
+  const [isloading, setIsloading] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
+    const controller = new AbortController();
 
-        const controller = new AbortController()
-        setIsLoading(true)
+    setIsloading(true);
 
-        apiClient
-        .get<FetchResponse<T>>(endpoint, { signal: controller.signal, ...requestConfig })
-        .then((response) => {
-            setData(response.data.result)
-            setIsLoading(false)
-        })
-    
-        .catch(error => {
-            if(error instanceof CanceledError) return;
-            setError(error.message)
-            setIsLoading(false)
-        });
+    apiClient
+      .get<FetchResponse<T>>(endpoint, { signal: controller.signal,...requestConfig })
+      .then((response) => {
+        setData(response.data.results);
+        setIsloading(false);
+      })
 
-        return () => controller.abort()
-    }, deps? [...deps]:[])
-    return { data, error, isLoading }
-}
+      .catch((error) => {
+        if (error instanceof CanceledError) return;
+        setError(error.message);
+        setIsloading(false);
+      });
 
-export default useData
+    return () => controller.abort();
+  },deps?[...deps]:[]);
+
+  // useEffect(() => {}, []);
+
+  return { data, error, isloading };
+};
+
+export default useData;
+
